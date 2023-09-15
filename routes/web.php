@@ -18,12 +18,17 @@ use App\Http\Controllers\PostsController;
 
 Route::get('/', function () {
     $posts = [];
-    
+
     if (auth()->check()) {
         $posts = auth()->user()->getUsersPosts()->latest()->get();
     }
 
     return view('home', ["posts" => $posts]);
+});
+
+Route::get("/all-posts", function () {
+    $posts = Post::all();
+    return view("all-posts", ["posts" => $posts]);
 });
 
 Route::post('/registration', [UserController::class, "registerUser"]);
@@ -33,3 +38,9 @@ Route::post('/logout', [UserController::class, "logoutUser"]);
 Route::post('/login', [UserController::class, "loginUser"]);
 
 Route::post('/submit-post', [PostsController::class, "submitPost"]);
+
+Route::get('/edit-post/{post}', [PostsController::class, "postEditor"]);
+
+Route::put('/edit-post/{post}', [PostsController::class, "updatePost"]);
+
+Route::delete('/delete-post/{post}', [PostsController::class, "deletePost"]);

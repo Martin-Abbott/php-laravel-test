@@ -25,24 +25,25 @@
         </form>
     </section>
     <section>
-        <h2>Your Posts</h2>
+        <h2>All Posts</h2>
         @foreach($posts as $post)
         <article>
             <h3>{{$post["title"]}}</h3>
+            <p>by {{$post->user->name}}<p>
             <p>{{$post["body"]}}</p>
-            <a href="/edit-post/{{$post->id}}">
+            <!-- <a href="/edit-post/{{$post->id}}">
                 <button>Edit</button>
             </a>
             <form action="/delete-post/{{$post->id}}" method="POST">
                 @csrf
                 @method("DELETE")
                 <button>Delete</button>
-            </form>
+            </form> -->
         </article>
         @endforeach
     </section>
-    <a href="/all-posts">
-        <button>View All Posts</button>
+    <a href="/">
+        <button>View Your Posts</button>
     </a>
 
     @else
